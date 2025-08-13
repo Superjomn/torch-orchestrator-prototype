@@ -20,9 +20,20 @@ master.submit(task=my_callable)
 ```
 
 ### Single node
-Run two processes on the local machine:
+Run orchestrator with four processes on the local machine:
 ```bash
-NUM_PROCESSES=2 python collective_demo.py
+NUM_PROCESSES=4 python collective_demo.py
+```
+Got the following log:
+```
+Init rank 0 of 4 processes, communicating to master: chunweiy-mlt:29500
+Init rank 1 of 4 processes, communicating to master: chunweiy-mlt:29500
+Init rank 2 of 4 processes, communicating to master: chunweiy-mlt:29500
+Init rank 3 of 4 processes, communicating to master: chunweiy-mlt:29500
+Rank 0/4 performed all_reduce, got tensor 10.0
+Rank 3/4 performed all_reduce, got tensor 10.0
+Rank 1/4 performed all_reduce, got tensor 10.0
+Rank 2/4 performed all_reduce, got tensor 10.0
 ```
 
 ### Multi node with `srun`

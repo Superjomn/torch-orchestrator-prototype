@@ -19,6 +19,7 @@ class Orchestrator:
 
     def submit(self, task, *args, **kwargs):
         """Run ``task`` across all processes."""
+        # We can insert some RPC in the processes to support more flexible features
         mp.spawn(self._worker, nprocs=self.num_processes,
                  args=(task, args, kwargs))
 
@@ -31,6 +32,8 @@ class Orchestrator:
         os.environ["RANK"] = str(global_rank)
         os.environ["WORLD_SIZE"] = str(world_size)
         os.environ["LOCAL_RANK"] = str(local_rank)
+
+        print(f"Init rank {global_rank} of {world_size} processes, communicating to master: {self.master_addr}:{self.master_port}")
 
         if self.backend == "nccl":
             torch.cuda.set_device(local_rank)

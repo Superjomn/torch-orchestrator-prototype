@@ -11,7 +11,7 @@ def all_reduce_task(rank: int, world_size: int) -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     tensor = torch.tensor([rank + 1], device=device, dtype=torch.float32)
     dist.all_reduce(tensor, op=dist.ReduceOp.SUM)
-    print(f"Rank {rank}/{world_size} has tensor {tensor.item()}")
+    print(f"Rank {rank}/{world_size} performed all_reduce, got tensor {tensor.item()}")
 
 
 def main():
